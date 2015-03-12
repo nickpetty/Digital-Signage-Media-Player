@@ -1,0 +1,40 @@
+<html>
+<head>
+<link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+
+ <style>
+    body {
+      position:  relative;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+    }
+    #player, #viewer {
+      background-color: black;
+      border: thin solid #333;
+      border-radius: 3px;
+      padding: 0 5px;
+      text-align: center;
+      opacity: 100;
+      overflow:hidden;
+      position:absolute;
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      z-index: -998;
+    }
+  </style>
+</head>
+
+
+<body>
+  
+  <video id="player"></video>
+  <img id="viewer">
+  <script src='/static/js/video.js'></script>
+
+</body>
+</html>
