@@ -19,7 +19,7 @@ basic_auth = BasicAuth(app)
 
 @app.route('/content')
 def content():
-	return render_template('index.html')
+	return render_template('content.html')
 
 @app.route('/update', methods=['POST'])
 def update():
@@ -27,8 +27,13 @@ def update():
 	playlist = []
 
 	for each in pl:
-		playlist.append(each.encode('ascii'))
-
+		tmp = []
+		for i in each:
+			if type(i) == int:
+				tmp.append(i)
+			else:
+				tmp.append(i.encode('ascii'))
+		playlist.append(tmp)
 	open('playlist', 'w').write(str(playlist))
 	return
 
@@ -45,14 +50,14 @@ def stream():
 	while True:
 		try:
 			playlist = eval(open('playlist', 'r').readline())
+			playlist = [playlist]
 		except SyntaxError:
-			playlist = ['/static/videos/blank.mp4']
+			playlist = [['/static/videos/blank.mp4',0]]
 			
 		yield 'data: %s\n\n' % json.dumps({'playlist': playlist})
 
 		gevent.sleep(1)
 
 if __name__ == '__main__':
-	#app.run(host='0.0.0.0', port=8080, debug=True)
     http_server = WSGIServer(('0.0.0.0', 8080), app)
     http_server.serve_forever()

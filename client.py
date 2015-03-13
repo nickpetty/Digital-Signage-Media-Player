@@ -2,7 +2,7 @@ import json
 import urllib2
 import requests
 
-playlist = ['/static/videos/Slide1.JPG', '/static/videos/tst.mp4', '/static/videos/Slide3.JPG']
+playlist = [['/static/videos/Slide1.JPG', 5000], ['/static/videos/Slide2.JPG', 5000], ['/static/videos/Slide3.JPG', 5000]]
 #playlist = ['/static/videos/tst.mp4']
 
 def sendPlaylist(playlist):
