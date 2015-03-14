@@ -24,40 +24,34 @@ if (fileExists(currentList[0][currentPOS][0])) {
 
 player.addEventListener('ended', playNext, false);
 
-
 function playNext() {
-	//if (player.ended) {
-		if (JSON.stringify(currentList) == sessionStorage.playlist) { // if false, new playlist is available, start at 0
-			if (currentPOS < currentList[0].length-1) { // move to next video in list, or start at 0
-				currentPOS = currentPOS+1;
-				if (fileExists(currentList[0][currentPOS][0])) {
-					playMedia(currentList[0][currentPOS][0], currentList[0][currentPOS][1]);				
-				} else {
-					playNext(); // Skip
-				};
-
+	if (JSON.stringify(currentList) == sessionStorage.playlist) { // if false, new playlist is available, start at 0
+		if (currentPOS < currentList[0].length-1) { // move to next video in list, or start at 0
+			currentPOS = currentPOS+1;
+			if (fileExists(currentList[0][currentPOS][0])) {
+				playMedia(currentList[0][currentPOS][0], currentList[0][currentPOS][1]);				
 			} else {
-				if (fileExists(currentList[0][0][0])) {
-					currentPOS = 0;
-					playMedia(currentList[0][0][0], currentList[0][0][1]);				
-				} else {
-					currentPOS = 0;
-					playNext();
-				}
-
+				playNext(); // Skip
 			};
 		} else {
-			currentList = JSON.parse(sessionStorage.playlist);
 			if (fileExists(currentList[0][0][0])) {
 				currentPOS = 0;
-				playMedia(currentList[0][0][0], currentList[0][0][1])				
+				playMedia(currentList[0][0][0], currentList[0][0][1]);				
 			} else {
 				currentPOS = 0;
 				playNext();
-			};
-
+			}
 		};
-	//};
+	} else {
+		currentList = JSON.parse(sessionStorage.playlist);
+		if (fileExists(currentList[0][0][0])) {
+			currentPOS = 0;
+			playMedia(currentList[0][0][0], currentList[0][0][1])				
+		} else {
+			currentPOS = 0;
+			playNext();
+		};
+	};
 };
 
 function playMedia(media, time) {
@@ -65,7 +59,6 @@ function playMedia(media, time) {
 	if (extn == '.jpg' || extn == 'jpeg') {
 		displayPicture(media, time);
 	};
-
 	if (extn == '.mp4') {
 		player.src = media;
 		player.play();
@@ -85,14 +78,12 @@ function fileExists(url) {
 
 function displayPicture(picture, time) {
     var img = document.getElementById("viewer");
-    img.src = picture;   
-    img.style.display="block";
-
+    img.src = picture;
+    img.style.display = "none";
+  	$("#viewer").fadeIn("100");
     setTimeout(function(){
-        img.style.display="none";
-    	playNext(); 
-    }, time); 
-          
+    	playNext();
+    }, time);   
 };
 
 
