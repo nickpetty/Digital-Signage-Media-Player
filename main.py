@@ -5,6 +5,9 @@ import gevent.monkey
 from gevent.pywsgi import WSGIServer
 from gevent import sleep
 import json
+from os import listdir, stat
+from os.path import isfile, join
+
 gevent.monkey.patch_all()
 
 app = Flask(__name__)
@@ -40,7 +43,9 @@ def update():
 @app.route('/settings')
 @basic_auth.required
 def settings():
-	return render_template('settings.html')
+	mypath = 'static/content/'
+	files = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
+	return render_template('settings.html', content=files)
 
 @app.route('/sse')
 def sse():
@@ -50,9 +55,10 @@ def stream():
 	while True:
 		try:
 			playlist = eval(open('playlist', 'r').readline())
-			playlist = [playlist]
+			if stat('playlist').st_size <= 2:
+				playlist = [['/static/content/blank.mp4', 0]]
 		except SyntaxError:
-			playlist = [['/static/videos/blank.mp4',0]]
+			playlist = [['/static/content/blank.mp4',0]]
 			
 		yield 'data: %s\n\n' % json.dumps({'playlist': playlist})
 

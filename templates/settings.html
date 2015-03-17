@@ -1,3 +1,28 @@
 <html>
-works
+<head>
+<link rel='stylesheet' src='/static/css/settings.css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+
+<body>
+	
+	<select style="width: 200px;" size="10" id='aContent'>
+	{% for file in content %}
+		<option value={{ file }}>{{ file }}</option>
+	{% endfor %}		
+	</select>
+
+	<div id="transferButton">
+		<button id="add">Add</button>
+		<br>
+		<button id="remove">Remove</button>
+		<br>
+		<button id="publish">Publish</button>
+	</div>
+	<select style="width: 200px;" size="10" id='playlist'></select>
+
+	<script src='/static/js/cms.js'></script>
+
+</body>
+
 </html>
