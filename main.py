@@ -37,15 +37,31 @@ def update():
 			else:
 				tmp.append(i.encode('ascii'))
 		playlist.append(tmp)
+		
 	open('playlist', 'w').write(str(playlist))
 	return
+
+@app.route('/playlist')
+@basic_auth.required
+def playlist():
+	mypath = 'static/content/'
+	files = []
+	for f in listdir(mypath):
+		if isfile(join(mypath, f)):
+			if f[0] != '.':
+				files.append(f)
+
+	return render_template('playlist.html', content=files)
 
 @app.route('/settings')
 @basic_auth.required
 def settings():
-	mypath = 'static/content/'
-	files = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
-	return render_template('settings.html', content=files)
+	return render_template('settings.html')
+
+@app.route('/manage')
+@basic_auth.required
+def manage():
+	return render_template('manage.html')
 
 @app.route('/sse')
 def sse():
@@ -67,3 +83,9 @@ def stream():
 if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 8080), app)
     http_server.serve_forever()
+
+
+
+
+
+
