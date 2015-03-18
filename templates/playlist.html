@@ -1,26 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-                    <li class="active"><a href="/playlist">Playlist</a></li>
-                  <li><a href="/manage">Manage</a></li>
-                  <li><a href="/settings">Settings</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <div class="inner cover">
-            <!-- <h1 class="cover-heading">Cover your page.</h1> -->
-            <p class="lead">
-
-<div id='content'>
-  <h3>Content:</h3>   
-  <select style="width: 200px; height: 300px;" size="10" id='aContent'>
-    {% for file in content %}
-      <option style="color:black;" value={{ file }}>{{ file }}</option>
-    {% endfor %}    
-  </select>
-</div>
-
 
 <div id="playlist">
   <h3>Playlist:</h3>
