@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
+<div id='content'>
+  <h3>Content:</h3>   
+  <select style="width: 200px; height: 300px;" size="10" id='aContent'>
+    {% for file in content %}
+      <option style="color:black;" value={{ file }}>{{ file }}</option>
+    {% endfor %}    
+  </select>
+</div>
 
-<div id="playlist">
+
   <h3>Playlist:</h3>
   <select style="color:black; width: 200px; height: 300px;" size="10" id='playlist'></select> 
-</div>
+
 
 <div id="transferButtons">
   <button class="btn btn-lg btn-default" id="add">Add</button>
